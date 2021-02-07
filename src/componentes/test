@@ -1,0 +1,39 @@
+let melds = [
+    [12, 22, 32, 42],
+    [13, 23, 33, 43],
+    [12, 13, 14, 15],
+]
+
+let values = []
+
+let array = []
+
+
+melds.map(meld => {
+    meld.map(value => {
+
+        let isInArray = false
+        values.map(obj => {
+            if (obj.value == value) {
+                isInArray = true
+            }
+        })
+
+        if (isInArray) {
+            values.map(obj => {
+                if (value == obj.value) {
+                    obj.count++
+                }
+            })
+        } else {
+            values.push({value, count: 1})
+        }
+    })
+})
+
+values.map(obj => {
+    if (obj.count > 1) array.push(obj.value)
+})
+
+
+console.log(array)

@@ -1,0 +1,31 @@
+.Header {
+    padding: 1rem 2rem;
+    display: flex;
+    flex-direction: row;
+}
+
+.Header a {
+    text-decoration: none;
+    color: inherit;
+}
+
+.Header nav {
+    display: flex;
+    flex-direction: row;
+    list-style: none;
+}
+
+.Header nav li {
+    margin-left: 1.5rem;
+}
+
+.Header nav li a {
+    font-size: 1.8rem;
+    opacity: 0.75;
+    transition: 0.25s ease-in-out;
+}
+
+.Header nav li a:hover, .Header nav li a.active {
+    opacity: 1;
+    transition: 0.25s ease-in-out;
+}

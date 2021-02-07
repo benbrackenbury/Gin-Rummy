@@ -1,0 +1,29 @@
+.Card {
+    background: transparent;
+    background-position: center;
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    flex: 1 1 0px;
+    height: 30rem;
+    margin: 1.5rem;
+    text-align: left;
+    font-size: 1.4rem;
+    transition: 0.25s ease-in-out;
+}
+
+.cardList {
+    display: flex;
+    padding-top: 1rem;
+    max-width: 100vw;
+}
+
+.cardWrapper {
+    max-width: calc(100vw / 10);
+}
+
+.middleDeck {
+    display: grid;
+    grid-template-columns: calc(100vw / 10) calc(100vw / 10) calc(100vw / 10);
+    width: calc(((100vw / 10)*3));
+    margin: 0 auto;
+}
