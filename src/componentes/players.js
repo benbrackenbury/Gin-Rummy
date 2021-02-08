@@ -1,9 +1,14 @@
+// import React, {useContext} from 'react'
+// import GameContext from '../context/GameContext'
+
 class Player {
     name = ''
     score = 0
     hand = []
     possibleMelds = []
     bestMelds = []
+    discardPile = []
+    deck = []
 
     constructor(name) {
         this.name = name
@@ -191,23 +196,93 @@ class Player {
     }
 
     opponentTurn() {
+        console.log('deck (player)', this.deck)
         this.getMelds()
 
         if (this.calcDeadwood() == 0) {
             this.endRound()
         } else {
             this.checkHandForSets(2)
-            console.log('robotHand', this.hand)
-            console.log('melds', this.possibleMelds)
 
-            
-            // let difference = this.arrDiff(this.hand, this.possibleMelds)
-            let difference = [...this.hand].filter(card => !this.possibleMelds.flat().includes(card));
-            console.log(difference)
+            let discardLength, deckLength = 0
+
+            // discard pile
+            let previousHandState = [...this.hand]
+            let discardCard = this.discardPile[0]
+            this.hand.push(discardCard)
+            let tmpPile = [...this.discardPile]
+            tmpPile.splice(tmpPile.indexOf(discardCard), 1)
+            this.getMelds()
+            discardLength = this.possibleMelds.length
+            console.log('discard', this.possibleMelds.length)
+            this.hand = [...previousHandState]
+
+            // deck pile
+            let deckCard = this.deck[0]
+            this.hand.push(deckCard)
+            let tmpPile2 = [...this.deck]
+            tmpPile2.splice(tmpPile.indexOf(deckCard), 1)
+            this.getMelds()
+            deckLength = this.possibleMelds.length
+            console.log('deck', this.possibleMelds.length)
+            this.hand = [...previousHandState]
+
+            if (discardLength > deckLength) {
+                let discardCard = this.discardPile[0]
+                this.hand.push(discardCard)
+                let tmpPile = [...this.discardPile]
+                tmpPile.splice(tmpPile.indexOf(discardCard), 1)
+                this.discardPile = [...tmpPile]
+            } else if (deckLength > discardLength) {
+                let deckCard = this.deck[0]
+                this.hand.push(deckCard)
+                let tmpPile2 = [...this.deck]
+                tmpPile2.splice(tmpPile.indexOf(deckCard), 1)
+                this.deck = [...tmpPile2]
+            } else {
+                //same
+                if (this.deck[0].value > this.discardPile[0].value) {
+                    let discardCard = this.discardPile[0]
+                    this.hand.push(discardCard)
+                    let tmpPile = [...this.discardPile]
+                    tmpPile.splice(tmpPile.indexOf(discardCard), 1)
+                    this.discardPile = [...tmpPile]
+                } else {
+                    let deckCard = this.deck[0]
+                    this.hand.push(deckCard)
+                    let tmpPile2 = [...this.deck]
+                    tmpPile2.splice(tmpPile.indexOf(deckCard), 1)
+                    this.deck = [...tmpPile2]
+                }
+            }
+
+            this.getMelds()
+            let deadwood = [...this.hand].filter(card => !this.possibleMelds.flat().includes(card))
+            let highestVal = 0
+            let highestValCard
+            deadwood.forEach(card => {
+                if (card.value > highestVal) {
+                    highestVal = card.value
+                    highestValCard = card
+                }
+            })
+
+            let cardToDiscardIndex
+            let cardToDiscard
+            this.hand.forEach((card, index) => {
+                if (card.value == highestValCard.value && card.suit == highestValCard.suit) {
+                    cardToDiscardIndex = index
+                    cardToDiscard = card
+                }
+            })
+
+            this.discardPile.unshift(cardToDiscard)
+            this.hand.splice(cardToDiscardIndex, 1)
+
         }
         
         return 'draw'
     }
 }
 
-module.exports = Player
+export default Player

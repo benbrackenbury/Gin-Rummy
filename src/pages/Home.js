@@ -13,8 +13,14 @@ const Home = () => {
     const [deck, setDeck] = useState([])
     const [discardPile, setDiscardPile] = useState([])
     const [hasDealt, setHasDealt] = useState(false)
-    const [gameState, setGameState] = useState('')
+    const [gameState, _setGameState] = useState(null)
+    const [prevGameState, setPrevGameState] = useState('')
     const [currentCard, setCurrentCard] = useState()
+
+    const setGameState = state => {
+        setPrevGameState(gameState)
+        _setGameState(state)
+    }
 
     const generateDeck = () => {
         let cards = []
@@ -76,16 +82,31 @@ const Home = () => {
         //     setTimeout(console.log('opponent'), 1000)
         //     i++
         // }
+
+        if (prevGameState == 'opponent') {
+            setDeck([...players[1].deck])
+            setDiscardPile([...players[1].discardPile])
+        }
+
         if (gameState == 'opponent') {
-            setGameState(
-                players[1].opponentTurn()
-            )
+            setTimeout(() => {
+                setGameState(
+                    players[1].opponentTurn()
+                )
+            }, 1000)
         }
     }, [gameState])
 
     // useEffect(() => {
     //     console.log('rerender')
     // }, [deck])
+
+    useEffect(() => {
+        players.forEach(player => {
+            player.discardPile = [...discardPile]
+            player.deck = [...deck]
+        })
+    }, [discardPile, deck])
 
     return (
         <GameContext.Provider value={{discardPile, setDiscardPile, deck, setDeck, userPlayer: players[0], gameState, setGameState, players, currentCard, setCurrentCard}}>
@@ -109,7 +130,7 @@ const Home = () => {
 
                 <br/>
                 
-                <div className="middleDeck">
+                <div className={`middleDeck ${gameState=='opponent' ? 'greyedOut' : ''}`}>
 
                     <div className="cardWrapper">
                         <img className="Card" src="/card-images/knock.png" alt="knock"/>
@@ -131,7 +152,7 @@ const Home = () => {
 
                 <br/>
 
-                <div className="cardList">
+                <div className={`cardList ${gameState=='opponent' ? 'greyedOut' : ''}`}>
                     {players[0] && players[0].hand.map((card, key) => (
                         // <li key={key}>{card.value == 1 ? 'ACE' : card.value}, {card.suit}</li>
                         <CardComponent card={card} isFaceUp={true} player={players[0]} pile={{name: 'hand', ref: players[0].hand}}/>

@@ -17,6 +17,12 @@
     max-width: 100vw;
 }
 
+.cardList.greyedOut .Card {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transition: 0.25s ease-in-out;
+}
+
 .cardWrapper {
     max-width: calc(100vw / 10);
 }
@@ -26,4 +32,10 @@
     grid-template-columns: calc(100vw / 10) calc(100vw / 10) calc(100vw / 10);
     width: calc(((100vw / 10)*3));
     margin: 0 auto;
+}
+
+.middleDeck.greyedOut .Card {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transition: 0.25s ease-in-out;
 }
