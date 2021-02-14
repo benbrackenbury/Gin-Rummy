@@ -5,11 +5,11 @@ import CardComponent from '../componentes/CardComponent'
 import { Card, suits } from '../componentes/cards'
 import Player from '../componentes/players'
 import '../style/home.css'
+import Lobby from './Lobby'
 
 let players = []
 
 const Home = () => {
-
     const [deck, setDeck] = useState([])
     const [discardPile, setDiscardPile] = useState([])
     const [hasDealt, setHasDealt] = useState(false)
