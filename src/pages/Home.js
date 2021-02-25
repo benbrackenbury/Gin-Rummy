@@ -13,8 +13,8 @@ const Home = () => {
     const [deck, setDeck] = useState([])
     const [discardPile, setDiscardPile] = useState([])
     const [hasDealt, setHasDealt] = useState(false)
-    const [gameState, _setGameState] = useState(null)
-    const [prevGameState, setPrevGameState] = useState('')
+    const {gameState, _setGameState, prevGameState, setPrevGameState, playerName, setPlayerName} = useContext(GameContext)
+    
     const [currentCard, setCurrentCard] = useState()
 
     const setGameState = state => {
@@ -119,7 +119,7 @@ const Home = () => {
                     }}>Deal</button>
                 )}
 
-                <h2>{gameState || 'null'}, deadwood: {players[0] && players[0].calcDeadwood()}</h2>
+                <h2>Name: {playerName || "null"}; {gameState || 'null'}, deadwood: {players[0] && players[0].calcDeadwood()}</h2>
 
                 <div className="cardList">
                     {players[1] && players[1].hand.map((card, key) => (

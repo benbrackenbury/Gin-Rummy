@@ -5,21 +5,32 @@ import CardComponent from '../componentes/CardComponent'
 import { Card, suits } from '../componentes/cards'
 import Player from '../componentes/players'
 import '../style/lobby.css'
+import firebase from '../services/firebase'
 
 let players = []
 
 const Lobby = () => {
 
-    const [playerName, setPlayerName] = useState('Player 1')
-    const [isFindingGame, setIsFindingGame] = useState(false)
+    const {playerName, setPlayerName, isFindingGame, setIsFindingGame} = useContext(GameContext)
 
     const findGame = e => {
         e.preventDefault()
+        setPlayerName(playerName)
+        
+
+        firebase.db.collection('gamedata').add({playername: 'TEST USER'})
+            .then(documentReference => {
+                console.log('document reference ID', documentReference.id)
+            })
+            .catch(error => {
+                console.log(error.message)
+            })
+
         setIsFindingGame(true)
-        const sleepInterval = Math.floor(Math.random() * 8)*1000
-        setTimeout(() => {
-            window.location = '/play'
-        }, sleepInterval)
+        // const sleepInterval = Math.floor(Math.random() * 1)*1000
+        // setTimeout(() => {
+        //     window.location = '/play'
+        // }, sleepInterval)
     }
 
     return (
@@ -32,7 +43,7 @@ const Lobby = () => {
             ) : (
                 <form onSubmit={e => findGame(e)} className="nameForm">
                     <label htmlFor="name">Enter your name</label>
-                    <input type="text" name="name" id="nameField" placeholder="Name" value={playerName} onChange={e => setPlayerName(e.target.value)}/>
+                    <input type="text" name="name" id="nameField" placeholder="Name" value={playerName} onChange={e => {setPlayerName(e.target.value)}}/>
                     <input type="submit" value="Find Game"/>
                 </form>
             )}

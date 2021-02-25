@@ -1,7 +1,7 @@
-import React from 'react';
+import React, {useState, useContext, useEffect} from 'react';
 import ReactDOM from 'react-dom';
 import {
-  BrowserRouter as Router,
+  HashRouter as Router,
   Switch,
   Route
 } from "react-router-dom";
@@ -14,21 +14,27 @@ import GameContext from './context/GameContext'
 import * as serviceWorker from './serviceWorker';
 
 const App = () => {
+  
+  const [gameState, _setGameState] = useState(null)
+  const [prevGameState, setPrevGameState] = useState('')
+  const [playerName, setPlayerName] = useState('Player 1')
+  const [isFindingGame, setIsFindingGame] = useState(false)
+  
   return (
-    <Router>
-
-    <div className="container">
-      <Switch>
-        <Route exact path="/">
-          <Lobby/>
-        </Route>
-        <Route exact path="/play">
-          <Home/>
-        </Route>
-      </Switch>
-    </div>
-
-    </Router>
+    <GameContext.Provider value={{gameState, _setGameState, prevGameState, setPrevGameState, playerName, setPlayerName, isFindingGame, setIsFindingGame}}>
+      <Router>
+          <div className="container">
+            <Switch>
+              <Route exact path="/">
+                <Lobby/>
+              </Route>
+              <Route exact path="/play">
+                <Home/>
+              </Route>
+            </Switch>
+          </div>
+      </Router>
+    </GameContext.Provider>
   )
 }
 
