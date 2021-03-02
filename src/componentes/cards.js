@@ -15,4 +15,4 @@ const suits = {
     DIAMONDS: 'diamonds'
 }
 
-module.exports = {Card, suits}
+export {Card, suits}
