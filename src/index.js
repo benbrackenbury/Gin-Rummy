@@ -1,7 +1,7 @@
 import React, {useState, useContext, useEffect} from 'react';
 import ReactDOM from 'react-dom';
 import {
-  BrowserRouter as Router,
+  HashRouter as Router,
   Switch,
   Route
 } from "react-router-dom";
@@ -22,7 +22,7 @@ const App = () => {
   
   return (
     <GameContext.Provider value={{gameState, _setGameState, prevGameState, setPrevGameState, playerName, setPlayerName, isFindingGame, setIsFindingGame}}>
-      <Router basename={process.env.PUBLIC_URL}>
+      <Router basename='/'>
           <div className="container">
             <Switch>
               <Route exact path="/">
