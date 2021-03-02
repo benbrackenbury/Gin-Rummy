@@ -19,7 +19,7 @@ const Lobby = () => {
 
         const sleepInterval = Math.floor(Math.random() * 1)*1000
         setTimeout(() => {
-            window.location = '/#/play'
+            window.location = '/play'
         }, sleepInterval)
     }
 
