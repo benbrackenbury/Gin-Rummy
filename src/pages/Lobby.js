@@ -1,4 +1,5 @@
 import React, {useEffect, useState, useContext} from 'react'
+import { useHistory } from "react-router-dom"
 import { createRenderer } from 'react-dom/test-utils'
 import GameContext from '../context/GameContext'
 import CardComponent from '../componentes/CardComponent'
@@ -9,6 +10,7 @@ import '../style/lobby.css'
 let players = []
 
 const Lobby = () => {
+    const history = useHistory()
 
     const {playerName, setPlayerName, isFindingGame, setIsFindingGame} = useContext(GameContext)
 
@@ -19,7 +21,7 @@ const Lobby = () => {
 
         const sleepInterval = Math.floor(Math.random() * 1)*1000
         setTimeout(() => {
-            window.location = 'https://benbrackenbury.github.io/Gin-Rummy/#/play'
+            history.push("/play")
         }, sleepInterval)
     }
 
