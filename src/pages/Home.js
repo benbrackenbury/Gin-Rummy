@@ -133,7 +133,7 @@ const Home = () => {
                 <div className={`middleDeck ${gameState=='opponent' ? 'greyedOut' : ''}`}>
 
                     <div className="cardWrapper">
-                        <img className="Card" src="/card-images/knock.png" alt="knock"/>
+                        <img className="Card" src="/Gin-Rummy/card-images/knock.png" alt="knock"/>
                         {/* <CardComponent card={deck[0]} isFaceUp={false} player={null} isKnock={true}/> */}
                     </div>
 
