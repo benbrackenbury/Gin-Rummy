@@ -22,7 +22,7 @@ const App = () => {
   
   return (
     <GameContext.Provider value={{gameState, _setGameState, prevGameState, setPrevGameState, playerName, setPlayerName, isFindingGame, setIsFindingGame}}>
-      <Router>
+      <Router basename={process.env.PUBLIC_URL}>
           <div className="container">
             <Switch>
               <Route exact path="/">
