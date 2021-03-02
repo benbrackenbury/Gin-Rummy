@@ -22,7 +22,7 @@ const App = () => {
   
   return (
     <GameContext.Provider value={{gameState, _setGameState, prevGameState, setPrevGameState, playerName, setPlayerName, isFindingGame, setIsFindingGame}}>
-      <Router basename='/Gin-Rummy'>
+      <Router>
           <div className="container">
             <Switch>
               <Route exact path="/">
