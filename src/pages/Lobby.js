@@ -21,7 +21,7 @@ const Lobby = () => {
 
         const sleepInterval = Math.floor(Math.random() * 1)*1000
         setTimeout(() => {
-            history.push("/play")
+            history.push("/chat")
         }, sleepInterval)
     }
 

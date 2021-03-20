@@ -8,6 +8,7 @@ import {
 import './style/index.css';
 import Header from './componentes/Header'
 import Home from './pages/Home'
+import Chat from './pages/Chat'
 import Lobby from './pages/Lobby'
 import GameContext from './context/GameContext'
 
@@ -22,11 +23,14 @@ const App = () => {
   
   return (
     <GameContext.Provider value={{gameState, _setGameState, prevGameState, setPrevGameState, playerName, setPlayerName, isFindingGame, setIsFindingGame}}>
-      <Router basename={`/${process.env.PUBLIC_URL}`}>
+      <Router basename={`/`}>
           <div className="container">
             <Switch>
               <Route exact path="/">
                 <Lobby/>
+              </Route>
+              <Route exact path="/chat">
+                <Chat/>
               </Route>
               <Route exact path="/play">
                 <Home/>

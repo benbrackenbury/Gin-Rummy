@@ -1,4 +1,4 @@
-import React, {useEffect, useState, useContext} from 'react'
+import React, {useEffect, useState, useContext, useRef} from 'react'
 import { createRenderer } from 'react-dom/test-utils'
 import GameContext from '../context/GameContext'
 import CardComponent from '../componentes/CardComponent'
@@ -20,6 +20,28 @@ const Home = () => {
     const setGameState = state => {
         setPrevGameState(gameState)
         _setGameState(state)
+    }
+
+    const dealBtnRef = useRef();
+
+    const gameStateMap = state => {
+        switch (state) {
+            case 'draw':
+                return 'Draw Card'
+                break;
+
+            case 'discard':
+                return 'Discard'
+                break;
+
+            case 'opponent':
+                return `${players[1].name}'s turn`
+                break;
+        
+            default:
+                return state
+                break;
+        }
     }
 
     const generateDeck = () => {
@@ -65,14 +87,20 @@ const Home = () => {
         setDiscardPile([tmpDeck[cardIndex]])
         tmpDeck.splice(cardIndex, 1)
         otherTmpDeck = [...tmpDeck]
-
-        setGameState('draw')
+        
+        setGameState('draw')        
     }
 
     useEffect(() => {
         generateDeck()
         createPlayers()
-        // deal()
+
+        setTimeout(() => {
+            if (dealBtnRef) {
+                dealBtnRef.current.click()
+            }
+        }, 100)
+
     }, [])
 
 
@@ -108,6 +136,19 @@ const Home = () => {
         })
     }, [discardPile, deck])
 
+    useEffect(() => {
+        if (players[1].calcDeadwood == 0) {
+            players[1].score += 25 + players[0].calcDeadwood()
+
+            if (players[1].score >= 100) {
+                alert('You lost :(')
+                window.location = '/'
+            } else {
+                window.location = '/chat'
+            }
+        }
+    }, [gameState])
+
     return (
         <GameContext.Provider value={{discardPile, setDiscardPile, deck, setDeck, userPlayer: players[0], gameState, setGameState, players, currentCard, setCurrentCard}}>
             <div className="Home">
@@ -116,16 +157,18 @@ const Home = () => {
                         e.preventDefault()
                         setHasDealt(true)
                         deal()
-                    }}>Deal</button>
+                    }} id="dealBtn" ref={dealBtnRef}>Loading</button>
                 )}
 
-                <h2>Name: {playerName || "null"}; {gameState || 'null'}, deadwood: {players[0] && players[0].calcDeadwood()}</h2>
+                {players[1] && (
+                    <h2>{players[1].name} Score: {players[1].score}</h2>
+                )}
 
                 <div className="cardList">
-                    {players[1] && players[1].hand.map((card, key) => (
+                    {players[1] && players[1].hand.map((card, key) => {
                         // <li key={key}>{card.value == 1 ? 'ACE' : card.value}, {card.suit}</li>
-                        <CardComponent card={card} isFaceUp={false} player={players[1]} pile={{name: 'opponentHand', ref: players[1].hand}}/>
-                    ))}
+                        return (<CardComponent card={card} isFaceUp={false} player={players[1]} pile={{name: 'opponentHand', ref: players[1].hand}}/>)
+                    })}
                 </div>
 
                 <br/>
@@ -133,7 +176,7 @@ const Home = () => {
                 <div className={`middleDeck ${gameState=='opponent' ? 'greyedOut' : ''}`}>
 
                     <div className="cardWrapper">
-                        <img className="Card" src="/Gin-Rummy/card-images/knock.png" alt="knock"/>
+                        <img className="Card" src={process.env.PUBLIC_URL + "/card-images/knock.png"} alt="knock"/>
                         {/* <CardComponent card={deck[0]} isFaceUp={false} player={null} isKnock={true}/> */}
                     </div>
 
@@ -153,11 +196,21 @@ const Home = () => {
                 <br/>
 
                 <div className={`cardList ${gameState=='opponent' ? 'greyedOut' : ''}`}>
-                    {players[0] && players[0].hand.map((card, key) => (
+                    {players[0] && players[0].hand.map((card, key) => {
                         // <li key={key}>{card.value == 1 ? 'ACE' : card.value}, {card.suit}</li>
-                        <CardComponent card={card} isFaceUp={true} player={players[0]} pile={{name: 'hand', ref: players[0].hand}}/>
-                    ))}
+                        return (<CardComponent card={card} isFaceUp={true} player={players[0]} pile={{name: 'hand', ref: players[0].hand}}/>)
+                    })}
                 </div>
+
+                <h2 className="gameState">{gameState ? gameStateMap(gameState) : ''}</h2>
+
+                {players[0] && (
+                    <div className="player1Score">
+                        <h2>{players[0].name} Score: {players[0].score}</h2>
+                        <div style={{flexGrow: 1}}/>
+                        <h2>Deadwood: {players[0].calcDeadwood()}/10</h2>
+                    </div>
+                )}
 
             </div>
         </GameContext.Provider>

@@ -1,2 +1,17 @@
-/* .Home {
-} */
+.Home {
+    overflow-x: hidden;
+}
+
+.Home .gameState {
+    text-align: right;
+    margin: 1rem;
+}
+
+.Home .player1Score {
+    display: flex;
+    margin: 1rem 0;
+}
+
+.Home .player1Score h2 {
+    margin: 0 1rem;
+}

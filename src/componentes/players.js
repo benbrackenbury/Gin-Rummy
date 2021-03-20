@@ -163,12 +163,7 @@ class Player {
                 value+= card.value<11 ? card.value : 10
             }
         })
-
         return value
-    }
-
-    endRound() {
-        alert('end')
     }
 
 
@@ -196,11 +191,10 @@ class Player {
     }
 
     opponentTurn() {
-        console.log('deck (player)', this.deck)
         this.getMelds()
 
         if (this.calcDeadwood() == 0) {
-            this.endRound()
+            //
         } else {
             this.checkHandForSets(2)
 
@@ -214,7 +208,6 @@ class Player {
             tmpPile.splice(tmpPile.indexOf(discardCard), 1)
             this.getMelds()
             discardLength = this.possibleMelds.length
-            console.log('discard', this.possibleMelds.length)
             this.hand = [...previousHandState]
 
             // deck pile
@@ -224,7 +217,6 @@ class Player {
             tmpPile2.splice(tmpPile.indexOf(deckCard), 1)
             this.getMelds()
             deckLength = this.possibleMelds.length
-            console.log('deck', this.possibleMelds.length)
             this.hand = [...previousHandState]
 
             if (discardLength > deckLength) {

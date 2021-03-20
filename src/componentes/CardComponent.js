@@ -1,4 +1,5 @@
 import React, {useEffect, useState, useContext} from 'react'
+import { useHistory } from "react-router-dom"
 import GameContext from '../context/GameContext'
 import '../style/card.css'
 
@@ -37,8 +38,20 @@ const CardComponent = ({card, isFaceUp, player, isKnock=false, pile}) => {
         return `${value}${card.suit[0].toUpperCase()}.png`
     }
 
-    const faceUpClicked = e => {
+    const checkGinPlayer = () => {
+        if (players[0].calcDeadwood == 0) {
+            players[0].score += 25 + players[1].calcDeadwood()
 
+            if (players[0].score >= 100) {
+                alert('You win!')
+                window.location = '/'
+            } else {
+                window.location = '/chat'
+            }
+        }
+    }    
+
+    const faceUpClicked = e => {
         if (player==null && gameState=='draw') {
             e.preventDefault()
             userPlayer.hand.push(card)
@@ -56,6 +69,7 @@ const CardComponent = ({card, isFaceUp, player, isKnock=false, pile}) => {
                 tmpPile.unshift(card)
                 setDiscardPile(tmpPile)
                 userPlayer.hand.splice(userPlayer.hand.indexOf(card), 1)
+                checkGinPlayer()
                 setGameState('opponent')
             } else {
                 //highlight knock and discard piles
@@ -70,6 +84,7 @@ const CardComponent = ({card, isFaceUp, player, isKnock=false, pile}) => {
                 tmpPile.unshift(currentCard)
                 setDiscardPile(tmpPile)
                 userPlayer.hand.splice(userPlayer.hand.indexOf(currentCard), 1)
+                checkGinPlayer()
                 setGameState('opponent')
         }
     }
