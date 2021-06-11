@@ -1,22 +1,22 @@
 {
   "files": {
     "main.css": "/Gin-Rummy/static/css/main.b4005e0d.chunk.css",
-    "main.js": "/Gin-Rummy/static/js/main.e4120c4a.chunk.js",
-    "main.js.map": "/Gin-Rummy/static/js/main.e4120c4a.chunk.js.map",
+    "main.js": "/Gin-Rummy/static/js/main.1e6327b9.chunk.js",
+    "main.js.map": "/Gin-Rummy/static/js/main.1e6327b9.chunk.js.map",
     "runtime-main.js": "/Gin-Rummy/static/js/runtime-main.80108e86.js",
     "runtime-main.js.map": "/Gin-Rummy/static/js/runtime-main.80108e86.js.map",
-    "static/js/2.9ec18847.chunk.js": "/Gin-Rummy/static/js/2.9ec18847.chunk.js",
-    "static/js/2.9ec18847.chunk.js.map": "/Gin-Rummy/static/js/2.9ec18847.chunk.js.map",
+    "static/js/2.999429c3.chunk.js": "/Gin-Rummy/static/js/2.999429c3.chunk.js",
+    "static/js/2.999429c3.chunk.js.map": "/Gin-Rummy/static/js/2.999429c3.chunk.js.map",
     "index.html": "/Gin-Rummy/index.html",
-    "precache-manifest.bc07342bbfcb60ea6039ad08b5e136b3.js": "/Gin-Rummy/precache-manifest.bc07342bbfcb60ea6039ad08b5e136b3.js",
+    "precache-manifest.1386533b74020935146fd9d9cd672312.js": "/Gin-Rummy/precache-manifest.1386533b74020935146fd9d9cd672312.js",
     "service-worker.js": "/Gin-Rummy/service-worker.js",
     "static/css/main.b4005e0d.chunk.css.map": "/Gin-Rummy/static/css/main.b4005e0d.chunk.css.map",
-    "static/js/2.9ec18847.chunk.js.LICENSE.txt": "/Gin-Rummy/static/js/2.9ec18847.chunk.js.LICENSE.txt"
+    "static/js/2.999429c3.chunk.js.LICENSE.txt": "/Gin-Rummy/static/js/2.999429c3.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.80108e86.js",
-    "static/js/2.9ec18847.chunk.js",
+    "static/js/2.999429c3.chunk.js",
     "static/css/main.b4005e0d.chunk.css",
-    "static/js/main.e4120c4a.chunk.js"
+    "static/js/main.1e6327b9.chunk.js"
   ]
 }
