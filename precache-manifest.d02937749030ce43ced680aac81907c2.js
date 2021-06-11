@@ -1,10 +1,10 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "9e4ca11cfd834f8da99e8ed393a336c5",
+    "revision": "6879981e7ff92e7828eebe33e35e0615",
     "url": "/Gin-Rummy/index.html"
   },
   {
-    "revision": "970dff804c3a9e5b8657",
+    "revision": "ad3473915dd79e666147",
     "url": "/Gin-Rummy/static/css/main.b4005e0d.chunk.css"
   },
   {
@@ -16,8 +16,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/Gin-Rummy/static/js/2.999429c3.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "970dff804c3a9e5b8657",
-    "url": "/Gin-Rummy/static/js/main.9c8a79b7.chunk.js"
+    "revision": "ad3473915dd79e666147",
+    "url": "/Gin-Rummy/static/js/main.b8502ed8.chunk.js"
   },
   {
     "revision": "05722164edb4903b5506",
