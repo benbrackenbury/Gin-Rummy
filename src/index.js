@@ -20,10 +20,11 @@ const App = () => {
   const [prevGameState, setPrevGameState] = useState('')
   const [playerName, setPlayerName] = useState('Player 1')
   const [isFindingGame, setIsFindingGame] = useState(false)
+  const [players, setPlayers] = useState([])
   
   return (
-    <GameContext.Provider value={{gameState, _setGameState, prevGameState, setPrevGameState, playerName, setPlayerName, isFindingGame, setIsFindingGame}}>
-      <Router basename={`/`}>
+    <GameContext.Provider value={{gameState, _setGameState, prevGameState, setPrevGameState, playerName, setPlayerName, players, setPlayers, isFindingGame, setIsFindingGame}}>
+      <Router basename={'/'}>
           <div className="container">
             <Switch>
               <Route exact path="/">

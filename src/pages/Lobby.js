@@ -12,11 +12,15 @@ let players = []
 const Lobby = () => {
     const history = useHistory()
 
-    const {playerName, setPlayerName, isFindingGame, setIsFindingGame} = useContext(GameContext)
+    const {playerName, setPlayerName, players, setPlayers, isFindingGame, setIsFindingGame} = useContext(GameContext)
 
     const findGame = e => {
         e.preventDefault()
         setPlayerName(playerName)
+        setPlayers([
+            new Player(playerName),
+            new Player('Player 2')
+        ])
         setIsFindingGame(true)
 
         const sleepInterval = Math.floor(Math.random() * 1)*1000

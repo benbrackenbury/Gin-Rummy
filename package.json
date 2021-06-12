@@ -1,6 +1,7 @@
 {
-  "name": "react-starter",
-  "version": "0.1.0",
+  "name": "Gin-Rummy",
+  "version": "1.0.0",
+  "description": "Online Gin Rummy game",
   "private": true,
   "homepage": ".",
   "dependencies": {

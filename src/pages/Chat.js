@@ -8,8 +8,9 @@ import Player from '../componentes/players'
 import '../style/chat.css'
 
 class Message {
-    constructor(sender, text) {
+    constructor(sender, score, text) {
         this.sender = sender
+        this.score = score
         this.text = text
         this.timestamp = Date.now()
     }
@@ -18,25 +19,67 @@ class Message {
 const Chat = () => {
     const history = useHistory()
 
-    const {playerName, setPlayerName, isFindingGame, setIsFindingGame} = useContext(GameContext)
+    const {playerName, setPlayerName, players, setPlayers, isFindingGame, setIsFindingGame} = useContext(GameContext)
     const [messages, setMessages] = useState([])
     const [currentMessage, setCurrentMessage] = useState('')
     const [isLoading, setIsLoading] = useState(true)
 
+    useEffect(() => {
+        if (players[1] === undefined) {
+            history.push(`/`)
+        }
+    }, [])
+
     const sendMessage = e => {
         e.preventDefault()
-        let message = new Message(playerName, currentMessage)
+        let score = 0
+        if (players!==undefined) {
+            //console.log('players not undefined')
+            if (playerName == players[0].name) {
+                score = players[0].score
+            } else {
+                score = players[1].score
+            }
+        }
+        let message = new Message(playerName, score, currentMessage)
         setMessages([...messages, message])
         setCurrentMessage('')
     }
 
-    useEffect(() => {
-        console.log(messages)
-    }, [messages])
+    const convertToCSV = objArray => {
+        var array = typeof objArray != 'object' ? JSON.parse(objArray) : objArray
+        var str = 'playerName, score, messageBody, messageTimestamp, playerScore\r\n'
+
+        for (var i = 0; i < array.length; i++) {
+            var line = ''
+            for (var index in array[i]) {
+                if (line != '') line += ','
+
+                line += array[i][index]
+            }
+
+            str += line + '\r\n'
+        }
+
+        return str
+    }
 
     const messageChange = e => {
         e.preventDefault()
         setCurrentMessage(e.target.value)
+    }
+
+    const sendChatData = async () => {
+        const url = `${process.env.PUBLIC_URL}/e.c.stanton/studies/GinRummy/ginrummy.php`
+        const rawResponse = await fetch(url, {
+            method: 'POST',
+            mode: 'cors',
+            headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({results2send: convertToCSV(messages)})
+    })
     }
 
     useEffect(() => {
@@ -44,6 +87,7 @@ const Chat = () => {
         var sec = 0;
         let timer = setInterval(() => {
             if (minute==0 && sec==0) {
+                sendChatData()
                 history.push("/play")
                 clearInterval(timer)
             } else {
@@ -55,7 +99,11 @@ const Chat = () => {
                 }
 
                 if (sec % 10 == 0) {
-                    let message = new Message('Fake User', 'Fake user message')
+                    let score = 0
+                    if (players!==undefined) {
+                        score = players[1].score
+                    }
+                    let message = new Message('Fake User', score, 'Fake user message')
                     setMessages(currentMessages => [...currentMessages, message])
                 }
             }

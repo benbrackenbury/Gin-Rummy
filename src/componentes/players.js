@@ -9,12 +9,52 @@ class Player {
     bestMelds = []
     discardPile = []
     deck = []
+    deadwoodCards = []
+    deadwood = 0
 
     constructor(name) {
         this.name = name
     }
 
     highestValueMeld() {
+        let bestMeldValue = 0
+        let bestMeld = null
+        let otherCards = []
+        this.possibleMelds.map((meld, index, melds) => {
+            let cardsInMeld = meld
+            let cardContested = false
+            let meldValue = 0
+            this.possibleMelds.map((meld2, index2, melds2) => {
+                if (index != index2)
+                {
+                    meld2.map((card, cardIndex) => {
+                        //if card is in cards in meld
+                        otherCards.push(card)
+                        if (cardsInMeld.includes(card)) {
+                            cardContested = true
+                        }
+                    })
+                }
+            })
+            meld.map((card2, cardIndex2) => {
+                if (!otherCards.includes(card2))
+                {
+                    meldValue+= card2.value < 11 ? card2.value : 10
+                }
+            })
+            if(!cardContested)
+            {
+                meldValue += 1000
+            }
+            if (meldValue >= bestMeldValue)
+            {
+                bestMeld = meld
+            }
+        })
+        return bestMeld
+    }
+
+    highestValueMeld2() {
         let highestEffeciency = 0
         let highestEfficiencyIndex = 0
 
@@ -41,7 +81,7 @@ class Player {
                 } else {
                     cardCounts.push({card, count: 1})
                 }
-                sum+= card.value<11 ? card.value : 10
+                sum+= card.value < 11 ? card.value : 10
             })
 
             cardCounts.map(obj => {
@@ -50,14 +90,20 @@ class Player {
 
             let intersection = meld.filter(value => contestedCards.includes(value))
 
-            // console.log('intersection', intersection)
+            // //console.log('intersection', intersection)
 
 
             let efficiency = sum / (intersection.length>0 ? intersection.length : 1)
-            // console.log(efficiency, contestedCards, meld)
+            //console.log('meld', meld)
+            // //console.log(efficiency, contestedCards, meld)
+            // //console.log({efficiency, highestEffeciency})
             if (efficiency > highestEffeciency) {
                 highestEffeciency = efficiency
                 highestEfficiencyIndex = index
+            } else if (efficiency == highestEffeciency) {
+                //TODO: the problem is here
+                this.bestMelds.push(meld)
+                // this.possibleMelds.splice(index, 1)
             }
         })
 
@@ -129,15 +175,22 @@ class Player {
         this.bestMelds.push(bestMeld)
 
         let possibleMeldsTmp = [...this.possibleMelds]
+
+        //console.log('possible melds', this.possibleMelds)
+
         possibleMeldsTmp.map((meld, index) => {
             bestMeld.map(card => {
                 if(meld.includes(card)) {
                     possibleMeldsTmp.splice(index, 1)
+                    //console.log('FILTER', {meld, bestMelds: this.bestMelds})
                 }
             })
+
         })
 
+        
         this.possibleMelds = possibleMeldsTmp
+        //console.log('post purge', this.possibleMelds)
     }
 
     getMelds() {
@@ -149,6 +202,7 @@ class Player {
     }
 
     calcDeadwood() {
+        this.deadwoodCards = []
         this.getMelds()
         let value = 0
 
@@ -161,8 +215,10 @@ class Player {
             })
             if (!isCardInMeld) {
                 value+= card.value<11 ? card.value : 10
+                this.deadwoodCards.push(card)
             }
         })
+        this.deadwood = value
         return value
     }
 
@@ -214,7 +270,7 @@ class Player {
             let deckCard = this.deck[0]
             this.hand.push(deckCard)
             let tmpPile2 = [...this.deck]
-            tmpPile2.splice(tmpPile.indexOf(deckCard), 1)
+            tmpPile2.splice(tmpPile2.indexOf(deckCard), 1)
             this.getMelds()
             deckLength = this.possibleMelds.length
             this.hand = [...previousHandState]
@@ -229,7 +285,7 @@ class Player {
                 let deckCard = this.deck[0]
                 this.hand.push(deckCard)
                 let tmpPile2 = [...this.deck]
-                tmpPile2.splice(tmpPile.indexOf(deckCard), 1)
+                tmpPile2.splice(tmpPile2.indexOf(deckCard), 1)
                 this.deck = [...tmpPile2]
             } else {
                 //same
@@ -243,7 +299,7 @@ class Player {
                     let deckCard = this.deck[0]
                     this.hand.push(deckCard)
                     let tmpPile2 = [...this.deck]
-                    tmpPile2.splice(tmpPile.indexOf(deckCard), 1)
+                    tmpPile2.splice(tmpPile2.indexOf(deckCard), 1)
                     this.deck = [...tmpPile2]
                 }
             }
