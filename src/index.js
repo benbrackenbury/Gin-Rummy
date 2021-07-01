@@ -12,6 +12,7 @@ import Chat from './pages/Chat'
 import Lobby from './pages/Lobby'
 import Welcome from './pages/Welcome'
 import Rules from './pages/Rules'
+import End from './pages/End'
 import GameContext from './context/GameContext'
 
 import * as serviceWorker from './serviceWorker';
@@ -23,9 +24,10 @@ const App = () => {
   const [playerName, setPlayerName] = useState('Player 1')
   const [isFindingGame, setIsFindingGame] = useState(false)
   const [players, setPlayers] = useState([])
+  const [roundsPlayed, setRoundsPlayed] = useState(2)
   
   return (
-    <GameContext.Provider value={{gameState, _setGameState, prevGameState, setPrevGameState, playerName, setPlayerName, players, setPlayers, isFindingGame, setIsFindingGame}}>
+    <GameContext.Provider value={{gameState, _setGameState, prevGameState, setPrevGameState, playerName, setPlayerName, players, setPlayers, isFindingGame, setIsFindingGame, roundsPlayed, setRoundsPlayed}}>
       <Router basename={'/'}>
           <div className="container">
             <Switch>
@@ -43,6 +45,9 @@ const App = () => {
               </Route>
               <Route exact path="/play">
                 <Home/>
+              </Route>
+              <Route exact path="/end">
+                <End/>
               </Route>
             </Switch>
           </div>

@@ -4,4 +4,6 @@
 
 [x] Ask for & save Prolific ID
 
-[ ] Add provided messages
+[x] Add provided messages
+
+[ ] Sort out scoring
