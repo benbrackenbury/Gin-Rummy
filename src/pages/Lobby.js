@@ -23,7 +23,6 @@ const Lobby = () => {
             new Player('Player 2')
         ])
         setIsFindingGame(true)
-        console.log('PLAYERS', players)
 
         const sleepInterval = Math.floor(Math.random() * 1)*1000
         setTimeout(() => {
