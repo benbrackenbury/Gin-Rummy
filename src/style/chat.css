@@ -1,0 +1,51 @@
+.Chat .message-area {
+    width: 30rem;
+    border: solid black 1px;
+    padding: 1rem;
+    max-height: 80vh;
+    height: 80vh;
+    max-width: 80vw;
+    width: 80vw;
+    display: flex;
+    flex-direction: column;
+    margin: 0 auto;
+}
+
+.Chat .message-area .spacer {
+    flex-grow: 1
+}
+
+.Chat .message-area ul {
+    overflow-y: scroll;
+}
+
+.Chat .message {
+    padding: 1rem 0.5rem;
+}
+
+.Chat .message.ownMessage {
+    text-align: right;
+}
+
+.Chat form {
+    display: flex;
+    flex-direction: row;
+    padding: 1rem;
+}
+
+.Chat form input,
+.Chat form textarea {
+    margin: 0 0.5rem;
+}
+
+.Chat form input {
+    padding: 0.5rem;
+    min-width: 10%;
+}
+
+.Chat form textarea {
+    flex-grow: 1;
+    resize: none;
+    font-size: 1.6rem;
+    padding: 0.5rem;
+}
