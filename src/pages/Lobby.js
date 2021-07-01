@@ -20,7 +20,7 @@ const Lobby = () => {
         setPlayerName(playerName)
         setPlayers([
             new Player(playerName, prolificID),
-            new Player('Player 2')
+            new Player('Jack')
         ])
         setIsFindingGame(true)
 

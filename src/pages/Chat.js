@@ -23,6 +23,7 @@ const Chat = () => {
     const [messages, setMessages] = useState([])
     const [currentMessage, setCurrentMessage] = useState('')
     const [isLoading, setIsLoading] = useState(true)
+    const [userMessagesCount, setUserMessagesCount] = useState(0)
 
     useEffect(() => {
         if (players[1] === undefined) {
@@ -44,6 +45,13 @@ const Chat = () => {
         let message = new Message(playerName, score, currentMessage)
         setMessages([...messages, message])
         setCurrentMessage('')
+        setUserMessagesCount(userMessagesCount+1)
+    }
+
+    const onEnterPress = e => {
+        if (e.keyCode === 13) {
+            sendMessage(e)
+        }
     }
 
     const convertToCSV = objArray => {
@@ -97,24 +105,42 @@ const Chat = () => {
                     minute --
                     sec = 59
                 }
-
-                if (sec % 10 == 0) {
-                    let score = 0
-                    if (players!==undefined) {
-                        score = players[1].score
-                    }
-                    let message = new Message('Fake User', score, 'Fake user message')
-                    setMessages(currentMessages => [...currentMessages, message])
-                }
             }
         }, 1000)
     }, [])
+
+    // first message from 'Jack'
+    useEffect(() => {
+        let score = 0
+        
+        if (players!==undefined) {
+            score = players[1].score
+        }
+        let message = new Message(players[1].name, score, 'Hi, I am Jack; nice to meet you. Do you know this game?')
+        setTimeout(() => {
+            setMessages(currentMessages => [...currentMessages, message])
+        }, 4500)
+    }, [])
+
+    //second message after player responds
+    useEffect(() => {
+        let score = 0
+        if (userMessagesCount === 1) {
+            if (players!==undefined) {
+                score = players[1].score
+            }
+            let message = new Message(players[1].name, score, 'I’m quite excited about the game. I’ve been playing card games with friends online, but never as part of a study. What do you think about it?')
+            setTimeout(() => {
+                setMessages(currentMessages => [...currentMessages, message])
+            }, 10000)
+        }
+    }, [userMessagesCount])
 
     return (
         <GameContext.Provider value={{playerName}}>
         <div className="Chat">
             <h1>Online Gin-Rummy</h1>
-            <h2>Chat</h2>
+            <h3>You will have an opportunity to meet your opponent now. You can chat with each other before the game starts.</h3>
             <h2 id="timer">...</h2>
 
             <div className="message-area">
@@ -130,7 +156,8 @@ const Chat = () => {
                 </ul>
                 <div className="spacer"></div>
                 <form onSubmit={e => sendMessage(e)}>
-                    <textarea type="text" name="message" id="message-box" placeholder="Message" value={currentMessage} onChange={e => messageChange(e)}/>
+                    <textarea type="text" name="message" id="message-box" placeholder="Message" 
+                        value={currentMessage} onChange={e => messageChange(e)} onKeyDown={onEnterPress}/>
                     <input type="submit" value="Send" disabled={currentMessage===''}/>
                 </form>
             </div>

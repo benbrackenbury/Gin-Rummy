@@ -1,6 +1,7 @@
 .Chat .message-area {
     width: 30rem;
     border: solid black 1px;
+    border-radius: 1rem;
     padding: 1rem;
     max-height: 80vh;
     height: 80vh;
@@ -8,7 +9,7 @@
     width: 80vw;
     display: flex;
     flex-direction: column;
-    margin: 0 auto;
+    margin: 2rem auto;
 }
 
 .Chat .message-area .spacer {
@@ -31,6 +32,7 @@
     display: flex;
     flex-direction: row;
     padding: 1rem;
+    align-items: center;
 }
 
 .Chat form input,
@@ -38,7 +40,7 @@
     margin: 0 0.5rem;
 }
 
-.Chat form input {
+.Chat form input[type="submit"] {
     padding: 0.5rem;
     min-width: 10%;
 }
@@ -48,4 +50,8 @@
     resize: none;
     font-size: 1.6rem;
     padding: 0.5rem;
+}
+
+.Chat h3 {
+    margin: 1rem 0;
 }
