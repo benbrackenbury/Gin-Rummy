@@ -1,5 +1,5 @@
 # To-Do
 
-[ ] Sort out pages
-[ ] Ask for & save Prolific ID
-[ ] Sort out pages
+[x] Sort out pages
+[x] Ask for & save Prolific ID
+[ ] Add provided messages

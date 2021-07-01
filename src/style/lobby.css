@@ -10,8 +10,31 @@
     margin: 0.6rem 0;
 }
 
-.Lobby .nameForm input {
-    padding: 0.2rem;
+.Lobby .nameForm label {
+    margin-top: 2rem;
+}
+
+.Lobby .nameForm input[type="text"] {
+    padding: 0.5rem;
+    border: 2px solid #CCCCCC;
+    border-radius: 0.5rem;
+}
+
+.Lobby .nameForm input[type="submit"] {
+    width: 100%;
+    height: 3rem;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 2rem;
+    border: none;
+    font-size: 1.4rem;
+    border-radius: 1rem;
+    background-color: #BBBBBB;
+}
+
+.Lobby .nameForm input[type="submit"]:Hover {
+    background-color: #999999;
+    cursor: pointer;
 }
 
 .Lobby .loading {

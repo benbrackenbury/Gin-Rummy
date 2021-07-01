@@ -11,9 +11,11 @@ class Player {
     deck = []
     deadwoodCards = []
     deadwood = 0
+    prolificID = ''
 
-    constructor(name) {
+    constructor(name, prolificID=null) {
         this.name = name
+        this.prolificID = prolificID
     }
 
     highestValueMeld() {

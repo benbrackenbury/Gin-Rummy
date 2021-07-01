@@ -10,6 +10,8 @@ import Header from './componentes/Header'
 import Home from './pages/Home'
 import Chat from './pages/Chat'
 import Lobby from './pages/Lobby'
+import Welcome from './pages/Welcome'
+import Rules from './pages/Rules'
 import GameContext from './context/GameContext'
 
 import * as serviceWorker from './serviceWorker';
@@ -28,6 +30,12 @@ const App = () => {
           <div className="container">
             <Switch>
               <Route exact path="/">
+                <Welcome/>
+              </Route>
+              <Route exact path="/rules">
+                <Rules/>
+              </Route>
+              <Route exact path="/lobby">
                 <Lobby/>
               </Route>
               <Route exact path="/chat">

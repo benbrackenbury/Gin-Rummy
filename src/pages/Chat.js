@@ -83,8 +83,8 @@ const Chat = () => {
     }
 
     useEffect(() => {
-        var minute = 2;
-        var sec = 0;
+        var minute = 2
+        var sec = 0
         let timer = setInterval(() => {
             if (minute==0 && sec==0) {
                 sendChatData()
@@ -95,7 +95,7 @@ const Chat = () => {
                 sec--
                 if (sec < 0) {
                     minute --
-                    sec = 59;
+                    sec = 59
                 }
 
                 if (sec % 10 == 0) {
