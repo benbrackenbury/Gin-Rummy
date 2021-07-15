@@ -42,6 +42,7 @@ const CardComponent = ({card, isFaceUp, player, isKnock=false, pile}) => {
     const checkGinPlayer = () => {
         if (players[0].calcDeadwood() == 0) {
             players[0].score += 25 + players[1].calcDeadwood()
+            players[0].scores.push(players[0].score)
             
             //console.log('Player 1 score', players[0].score)
             //console.log('Player 2 score', players[1].score)
@@ -60,6 +61,7 @@ const CardComponent = ({card, isFaceUp, player, isKnock=false, pile}) => {
             //console.log('player 2 score before calc', players[1].score)
             //console.log('player 1 deadwood', players[0].calcDeadwood())
             players[1].score += 25 + players[0].calcDeadwood()
+            players[1].scores.push(players[1].score)
 
             //console.log('Player 1 score', players[0].score)
             //console.log('Player 2 score', players[1].score)
@@ -177,6 +179,8 @@ const CardComponent = ({card, isFaceUp, player, isKnock=false, pile}) => {
                 theirDeadwood += (card.value<11 ? card.value : 10)
             })
             players[0].score += theirDeadwood - players[0].calcDeadwood()
+            players[0].scores.push(players[0].score)
+
             //console.log('their deadwood', theirDeadwood)
             //console.log('our score', players[0].score)
             if (players[0].score >= 100) {

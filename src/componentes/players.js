@@ -4,6 +4,7 @@
 class Player {
     name = ''
     score = 0
+    scores = []
     hand = []
     possibleMelds = []
     bestMelds = []

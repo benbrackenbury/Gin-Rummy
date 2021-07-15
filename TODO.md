@@ -6,4 +6,7 @@
 
 [x] Add provided messages
 
-[ ] Sort out scoring
+[-] Sort out scoring
+
+    [x] Store score for each round
+    [ ] Display each rounds score after round
