@@ -19,16 +19,31 @@ class Message {
 const Chat = () => {
     const history = useHistory()
 
-    const {playerName, setPlayerName, players, setPlayers, isFindingGame, setIsFindingGame, roundsPlayed, setRoundsPlayed} = useContext(GameContext)
+    const {gameState, _setGameState, prevGameState, setPrevGameState, playerName, setPlayerName, players, setPlayers, isFindingGame, setIsFindingGame, roundsPlayed, setRoundsPlayed} = useContext(GameContext)
     const [messages, setMessages] = useState([])
     const [currentMessage, setCurrentMessage] = useState('')
     const [isLoading, setIsLoading] = useState(true)
     const [userMessagesCount, setUserMessagesCount] = useState(0)
+    const [chatLogPhpLink, setChatLogPhpLink] = useState('#')
+
+    let context = useContext(GameContext)
+    useEffect(() => {
+        console.log('context', context)
+    })
 
     useEffect(() => {
         if (players[1] === undefined) {
             history.push(`/`)
         }
+    }, [])
+
+    useEffect(() => {
+        fetch(`${process.env.PUBLIC_URL}/links.json`, {mode: 'cors'})
+        .then(res => res.json())
+        .then(data => {
+            console.log(data)
+            setChatLogPhpLink(data.chatLogPHPLink)
+        })
     }, [])
 
     const sendMessage = e => {
@@ -78,7 +93,7 @@ const Chat = () => {
     }
 
     const sendChatData = async () => {
-        const url = `${process.env.PUBLIC_URL}/e.c.stanton/studies/GinRummy/ginrummy.php`
+        const url = chatLogPhpLink
         const rawResponse = await fetch(url, {
             method: 'POST',
             mode: 'cors',
@@ -87,7 +102,7 @@ const Chat = () => {
             'Content-Type': 'application/json'
         },
         body: JSON.stringify({results2send: convertToCSV(messages)})
-    })
+        })
     }
 
     // useEffect(() => {
@@ -160,6 +175,7 @@ const Chat = () => {
         if (userMessagesCount >= 2 && roundsPlayed !== 2) {
             setTimeout(() => {
                 document.getElementById("timer").innerHTML = `Get ready! Round ${roundsPlayed+1} will start in 10 seconds`
+                document.getElementById("message-box").disabled = true
                 if (roundsPlayed == 0) {
                     if (players!==undefined) {
                         score = players[1].score
@@ -176,11 +192,12 @@ const Chat = () => {
 
     const winningText = () => {
         let result
-        const roundWinner = players[(players[0].score > players[1].score) ? 0 : 1].name
+        const roundWinner = players[(players[0].scores[players[0].scores.length - 1] > players[1].scores[players[1].scores.length - 1]) ? 0 : 1].name
+        const gameWinner = players[(players[0].score > players[1].score) ? 0 : 1].name
         if (players[0].score === players[1].score) {
             result = `This is the end of Round ${roundsPlayed}.  The winner is ${roundWinner}. Overall, its a tie!`
         } else {
-            result = `This is the end of Round ${roundsPlayed}.  The winner is ${roundWinner}.  Overall, the winner is ${roundWinner}!`
+            result = `This is the end of Round ${roundsPlayed}.  The winner is ${roundWinner}.  Overall, the winner is ${gameWinner}!`
         }
         return result
     }

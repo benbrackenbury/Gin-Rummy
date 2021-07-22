@@ -24,7 +24,7 @@ const App = () => {
   const [playerName, setPlayerName] = useState('Player 1')
   const [isFindingGame, setIsFindingGame] = useState(false)
   const [players, setPlayers] = useState([])
-  const [roundsPlayed, setRoundsPlayed] = useState(2)
+  const [roundsPlayed, setRoundsPlayed] = useState(0)
   
   return (
     <GameContext.Provider value={{gameState, _setGameState, prevGameState, setPrevGameState, playerName, setPlayerName, players, setPlayers, isFindingGame, setIsFindingGame, roundsPlayed, setRoundsPlayed}}>

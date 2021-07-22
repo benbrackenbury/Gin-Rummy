@@ -5,9 +5,19 @@ import GameContext from '../context/GameContext'
 import CardComponent from '../componentes/CardComponent'
 import { Card, suits } from '../componentes/cards'
 import Player from '../componentes/players'
-import '../style/end.css'
 
 const End = () => {
+    
+    const [surveyLink, setSurveyLink] = useState('#')
+
+    useEffect(() => {
+        fetch(`${process.env.PUBLIC_URL}/links.json`, {mode: 'cors'})
+        .then(res => res.json())
+        .then(data => {
+            console.log(data)
+            setSurveyLink(data.survey)
+        })
+    }, [])
 
     return (
         <div className="End">
@@ -18,7 +28,7 @@ const End = () => {
                 <p>
                     Please click on the link below to evaluate the other player
                 </p>
-                <a href="#">Survey</a>
+                <a href={surveyLink}>Survey</a>
             </main>
 
         </div>

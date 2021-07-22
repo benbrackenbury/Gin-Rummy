@@ -7,8 +7,8 @@ const CardComponent = ({card, isFaceUp, player, isKnock=false, pile}) => {
     const history = useHistory()
 
     const [isFaceUpState, setIsFaceUpSate] = useState(false)
-    const {discardPile, setDiscardPile, deck, setDeck, gameState, setGameState, currentCard, setCurrentCard, players, setPlayers} = useContext(GameContext)
-
+    const {discardPile, setDiscardPile, deck, setDeck, gameState, setGameState, currentCard, setCurrentCard, players, setPlayers, roundsPlayed, setRoundsPlayed} = useContext(GameContext)
+ 
     useEffect(() => {
         setIsFaceUpSate(isFaceUp)
     }, [])
@@ -52,6 +52,8 @@ const CardComponent = ({card, isFaceUp, player, isKnock=false, pile}) => {
                 history.push('/')
             } else {
                 alert(`You went Gin and gained ${25+players[1].calcDeadwood()} points`)
+                console.log('setRoundsPlayed', setRoundsPlayed)
+                setRoundsPlayed(roundsPlayed + 1)
                 history.push('/chat')
                 //console.log('chat')
             }
@@ -71,6 +73,8 @@ const CardComponent = ({card, isFaceUp, player, isKnock=false, pile}) => {
                 history.push('/')
             } else {
                 alert(`${players[1].name} went Gin and gained ${25+players[0].calcDeadwood()} points`)
+                console.log('setRoundsPlayed', setRoundsPlayed)
+                setRoundsPlayed(roundsPlayed + 1)
                 history.push('/chat')
             }
         }
@@ -188,6 +192,8 @@ const CardComponent = ({card, isFaceUp, player, isKnock=false, pile}) => {
                 history.push('/')
             } else {
                 alert(`You knocked and ${theirDeadwood - players[0].calcDeadwood() > -1 ? 'gained' : 'lost'} ${Math.abs(theirDeadwood - players[0].calcDeadwood())} points`)
+                console.log('setRoundsPlayed', setRoundsPlayed)
+                setRoundsPlayed(roundsPlayed + 1)
                 history.push('/chat')
                 //console.log('chat')
             }

@@ -13,7 +13,7 @@ const Home = () => {
     const [deck, setDeck] = useState([])
     const [discardPile, setDiscardPile] = useState([])
     const [hasDealt, setHasDealt] = useState(false)
-    const {gameState, _setGameState, prevGameState, setPrevGameState, playerName, setPlayerName, players, setPlayers} = useContext(GameContext)
+    const {gameState, _setGameState, prevGameState, setPrevGameState, playerName, setPlayerName, players, setPlayers, roundsPlayed, setRoundsPlayed} = useContext(GameContext)
     
     const [currentCard, setCurrentCard] = useState()
 
@@ -209,7 +209,7 @@ const Home = () => {
     }, [deck, discardPile])
 
     return (
-        <GameContext.Provider value={{discardPile, setDiscardPile, deck, setDeck, userPlayer: players[0], gameState, setGameState, currentCard, setCurrentCard, players, setPlayers}}>
+        <GameContext.Provider value={{discardPile, setDiscardPile, deck, setDeck, userPlayer: players[0], gameState, setGameState, currentCard, setCurrentCard, players, setPlayers, roundsPlayed, setRoundsPlayed}}>
             <div className="Home">
                 {!hasDealt && (
                     <button onClick={e => {
